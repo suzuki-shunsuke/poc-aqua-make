@@ -3,6 +3,11 @@
 set -eu
 set -o pipefail
 
+version_file=.aqua/aqua-$AQUA_VERSION
+if [ -f "$version_file" ]; then
+  exit 0
+fi
+
 tempdir=$(mktemp -d)
 cd "$tempdir"
 curl -sSfL -O https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.1.1/aqua-installer
@@ -11,11 +16,14 @@ chmod +x aqua-installer
 
 if [ -n "${AQUA_VERSION:-}" ]; then
   ./aqua-installer -v "$AQUA_VERSION"
+  cd -
   mkdir -p .aqua
-  touch ".aqua/aqua-$AQUA_VERSION"
+  touch "$version_file"
 else
   ./aqua-installer
+  cd -
 fi
 
-cd -
 rm -R "$tempdir"
+
+aqua i -l

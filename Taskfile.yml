@@ -10,19 +10,14 @@ env:
 
 tasks:
   lint:
-    deps: [aqua-install]
+    deps: [setup-aqua]
     cmds:
       - golangci-lint run
 
-  aqua-install:
-    deps: [install-aqua]
-    cmds:
-      - aqua i -l
-
-  install-aqua:
+  setup-aqua:
     generates:
       - .aqua/aqua-{{.aqua_version}}
     cmds:
-      - bash scripts/install_aqua.sh
+      - bash scripts/setup_aqua.sh
     env:
       AQUA_VERSION: "{{.aqua_version}}"
