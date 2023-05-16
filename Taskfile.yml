@@ -1,0 +1,28 @@
+version: '3'
+
+vars:
+  AQUA_ROOT_DIR:
+    sh: echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}"
+  aqua_version: v2.6.0
+
+env:
+  PATH: {{.AQUA_ROOT_DIR}}/bin:{{.PATH}}
+
+tasks:
+  lint:
+    deps: [aqua-install]
+    cmds:
+      - golangci-lint run
+
+  aqua-install:
+    deps: [install-aqua]
+    cmds:
+      - aqua i -l
+
+  install-aqua:
+    generates:
+      - .aqua/aqua-{{.aqua_version}}
+    cmds:
+      - bash scripts/install_aqua.sh
+    env:
+      AQUA_VERSION: "{{.aqua_version}}"
