@@ -6,7 +6,7 @@ vars:
   aqua_version: v2.6.0
 
 env:
-  PATH: {{.AQUA_ROOT_DIR}}/bin:{{.PATH}}
+  PATH: "{{.AQUA_ROOT_DIR}}/bin:{{.PATH}}"
 
 tasks:
   lint:
