@@ -8,18 +8,10 @@ endif
 
 PATH := $(AQUA_ROOT_DIR)/bin:$(PATH)
 
-AQUA_VERSION := "v2.6.0"
+.PHONY: setup-aqua
+setup-aqua:
+	bash scripts/setup_aqua.sh
 
-.PHONY: install-aqua
-install-aqua: .aqua/aqua-$(AQUA_VERSION)
-
-.aqua/aqua-$(AQUA_VERSION):
-	AQUA_VERSION=$(AQUA_VERSION) bash scripts/setup_aqua.sh
-
-.PHONY: aqua-install
-aqua-install: install-aqua
-	aqua i -l
-
-.PHONY: lint
-lint: aqua-install
-	golangci-lint run
+.PHONY: tf-init
+tf-init: setup-aqua
+	terraform init

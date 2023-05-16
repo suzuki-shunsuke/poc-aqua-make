@@ -12,3 +12,4 @@ registries:
 packages:
 - name: golangci/golangci-lint@v1.52.2
 - name: go-task/task@v3.24.0
+- name: hashicorp/terraform@v1.4.6

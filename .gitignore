@@ -1,1 +1,4 @@
-.aqua/aqua-*
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+*.backup
